@@ -13,8 +13,13 @@ from datetime import datetime
 # TensorFlow és Essentia logging csendesítés
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['ESSENTIA_LOGGING_LEVEL'] = 'ERROR'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 logging.getLogger('tensorflow').setLevel(logging.ERROR)
 logging.getLogger('essentia').setLevel(logging.ERROR)
+
+# További TensorFlow csendesítés
+import warnings
+warnings.filterwarnings('ignore')
 
 import numpy as np
 import pandas as pd
@@ -24,11 +29,19 @@ import urllib.request
 try:
     import essentia
     import essentia.standard as es
+    
+    # Extra Essentia csendesítés
+    essentia.log.silent()
+    essentia.log.setLevel(essentia.EAlgorithmLogLevel.SILENT)
+    
     print("✅ Essentia betöltve (verzió: {})".format(essentia.__version__))
 except ImportError:
     print("❌ Hiba: Essentia nincs telepítve!")
     print("Telepítés: pip install essentia-tensorflow")
     sys.exit(1)
+except Exception:
+    # Ha a csendesítés nem működik, folytatjuk
+    print("✅ Essentia betöltve (verzió: {})".format(essentia.__version__))
 
 
 class ConfigurableGenreClassifier:

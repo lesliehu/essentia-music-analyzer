@@ -18,8 +18,8 @@ git lfs pull
 # 4. Audio fájlok hozzáadása
 cp *.mp3 audio_mp3/
 
-# 5. Futtatás (csend verzió)
-python3 linux_essentia_optimized.py
+# 5. Futtatás (intelligens csend verzió)
+./run_silent.sh
 ```
 
 ## 📁 Rendszer Struktúra
@@ -137,27 +137,37 @@ source essentia_env/bin/activate
 python3 linux_essentia_optimized.py
 ```
 
-### **2. Konfigurálható Használat** (Több Modell)
+### **2. Gyors Modell Váltás**
+```bash
+# Gyors váltó (interaktív)
+./quick_switch.sh
+# ↓ Választás:
+# 1. discogs (400+ műfaj, precíz)
+# 2. musicnn (10 műfaj, gyors)
+
+# Futtatás automatikus modell választással
+./run_silent.sh
+```
+
+### **3. Manuális Konfiguráció**
 ```bash
 # Konfiguráció megtekintése
 python3 config_editor.py show
 
-# Modell váltás (MusiCNN gyorsabb)
+# Modell váltás parancssorból
 python3 config_editor.py set-model musicnn
 
-# Konfigurálható futtatás
-python3 linux_essentia_configurable.py
+# Interaktív szerkesztő
+python3 config_editor.py
 ```
 
-### **3. Interaktív Konfiguráció**
+### **4. Közvetlen Futtatás** (haladóknak)
 ```bash
-# Grafikus szerkesztő
-python3 config_editor.py
-# ↓ Menü:
-# 1. Konfiguráció megjelenítése
-# 2. Elérhető modellek
-# 3. Aktív modell változtatása  
-# 4. Feldolgozási beállítások
+# Optimalizált verzió (fix Discogs)
+python3 linux_essentia_optimized.py
+
+# Konfigurálható verzió (JSON alapján)  
+python3 linux_essentia_configurable.py
 ```
 
 ### **Eredmények:**
