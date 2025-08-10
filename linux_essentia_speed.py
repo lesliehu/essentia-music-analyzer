@@ -16,6 +16,8 @@ os.environ['ESSENTIA_LOGGING_LEVEL'] = 'ERROR'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['KMP_AFFINITY'] = 'noverbose'
 os.environ['TF_AUTOTUNE_THRESHOLD'] = '1'
+os.environ['GLOG_minloglevel'] = '3'
+os.environ['TF_SUPPRESS_LOGS'] = '1'
 
 # Összes warning és info kikapcsolása
 import warnings
@@ -28,6 +30,10 @@ import logging
 logging.getLogger('tensorflow').setLevel(logging.CRITICAL)
 logging.getLogger('essentia').setLevel(logging.CRITICAL)
 logging.getLogger('absl').setLevel(logging.CRITICAL)
+logging.getLogger().setLevel(logging.CRITICAL)
+
+# Root logger teljes kikapcsolás
+logging.disable(logging.WARNING)
 
 # Stderr csendesítés TensorFlow-hoz
 import sys
@@ -407,5 +413,32 @@ def main():
         return 1
 
 
+def silent_main():
+    """Main wrapper - elnyomja az összes stderr outputot"""
+    # Stderr elnyomás a teljes program futása alatt
+    stderr_devnull = open(os.devnull, 'w')
+    original_stderr = sys.stderr
+    
+    try:
+        # Csak a WARNING és INFO szintű üzenetek elnyomása
+        class WarningFilter:
+            def write(self, text):
+                # Ha WARNING vagy INFO, ne írja ki
+                if any(keyword in text for keyword in ['WARNING', 'INFO', 'No network created']):
+                    return
+                # Egyébként eredeti stderr-re
+                original_stderr.write(text)
+                
+            def flush(self):
+                original_stderr.flush()
+        
+        sys.stderr = WarningFilter()
+        return main()
+        
+    finally:
+        sys.stderr = original_stderr
+        stderr_devnull.close()
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(silent_main())
