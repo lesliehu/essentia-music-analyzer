@@ -245,7 +245,7 @@ def main():
     editor = ConfigEditor(config_path)
     
     if len(sys.argv) > 2:
-        # Parancssori argumentumok
+        # Parancssori argumentumok - config fájl + parancs
         command = sys.argv[2]
         if command == "show":
             editor.show_current_config()
@@ -253,7 +253,7 @@ def main():
             editor.show_available_models()
         elif command == "set-model" and len(sys.argv) > 3:
             model_name = sys.argv[3]
-            if model_name in editor.config["model_settings"]["models"]:
+            if editor.config and model_name in editor.config["model_settings"]["models"]:
                 editor.config["model_settings"]["active_model"] = model_name
                 editor.save_config()
             else:
@@ -263,6 +263,39 @@ def main():
             print(f"  {sys.argv[0]} [config.json] show")
             print(f"  {sys.argv[0]} [config.json] models")
             print(f"  {sys.argv[0]} [config.json] set-model <model_name>")
+    elif len(sys.argv) == 3 and sys.argv[1] == "set-model":
+        # set-model <model_name> format
+        model_name = sys.argv[2]
+        if editor.config and model_name in editor.config["model_settings"]["models"]:
+            old_model = editor.config["model_settings"]["active_model"]
+            editor.config["model_settings"]["active_model"] = model_name
+            if editor.save_config():
+                print(f"✅ Modell váltás: {old_model} → {model_name}")
+            else:
+                print(f"❌ Mentési hiba!")
+        else:
+            if not editor.config:
+                print("❌ Konfiguráció nem betöltött!")
+            else:
+                print(f"❌ Ismeretlen modell: {model_name}")
+                available = list(editor.config["model_settings"]["models"].keys())
+                print(f"Elérhető: {', '.join(available)}")
+    elif len(sys.argv) > 1:
+        # Csak egy argumentum - lehet parancs vagy config fájl
+        arg = sys.argv[1]
+        if arg == "show":
+            editor.show_current_config()
+        elif arg == "models":
+            editor.show_available_models()
+        elif arg == "set-model":
+            print("❌ Hiányzó modell név!")
+            print("Használat: python3 config_editor.py set-model <model_name>")
+        elif not arg.endswith(".json"):
+            print(f"❌ Ismeretlen parancs: {arg}")
+            print("Elérhető parancsok: show, models, set-model")
+        else:
+            # Interaktív mód custom config fájllal
+            editor.interactive_menu()
     else:
         # Interaktív mód
         editor.interactive_menu()
