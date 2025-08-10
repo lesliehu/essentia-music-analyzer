@@ -26,40 +26,35 @@ cp *.mp3 audio_mp3/
 
 ```
 essentia-local/
-├── linux_essentia_optimized.py    # FŐPROGRAM (csend verzió)
-├── linux_essentia_configurable.py # KONFIGURÁLHATÓ verzió
-├── config.json                    # Konfiguráció fájl
-├── config_editor.py               # Konfiguráció szerkesztő
-├── check_installation.py          # Telepítés ellenőrző
-├── setup.sh                       # Telepítő script  
-├── requirements.txt               # Python függőségek
-├── README.md                      # Ez a fájl
-├── models/                        # Aktív modell fájlok  
-│   ├── classifier_model.pb        # Discogs EffNet (18MB)
-│   └── classifier_labels.json     # 400 műfaj címke
-└── audio_mp3/                     # Feldolgozandó fájlok
+├── linux_essentia_optimized.py   # FŐPROGRAM - Discogs EffNet
+├── run_silent.sh                  # Wrapper script (csend verzió)
+├── check_installation.py         # Telepítés ellenőrző
+├── setup.sh                      # Telepítő script  
+├── requirements.txt              # Python függőségek
+├── README.md                     # Ez a fájl
+├── models/                       # Modell fájlok  
+│   ├── classifier_model.pb       # Discogs EffNet (18MB)
+│   └── classifier_labels.json    # 400 műfaj címke
+└── audio_mp3/                    # Feldolgozandó fájlok
 ```
 
 ## 🎼 Jellemzők
 
-### 🚀 **Két Verzió Elérhető:**
+### 🚀 **Egyszerű, Optimalizált Megközelítés:**
 
-#### **1. Optimalizált Verzió** (`linux_essentia_optimized.py`)
-- **Discogs EffNet modell**: 400+ műfaj kategória
-- **Rögzített beállítások**: Gyors használat
-- **Csend üzemmód**: Nincs TensorFlow spam
+#### **Discogs EffNet Elemző** (`linux_essentia_optimized.py`)
+- **400+ műfaj kategória**: Professzionális részletezettség
+- **Rögzített beállítások**: Plug-and-play használat  
+- **Csend üzemmód**: Tiszta, spam-mentes kimenet
+- **Optimalizált teljesítmény**: 15-30 másodperc/fájl
+- **Kompakt méret**: Csak 18MB modell + kód
 
-#### **2. Konfigurálható Verzió** (`linux_essentia_configurable.py`) 
-- **Discogs EffNet modell**: 400+ műfaj kategória
-- **JSON konfiguráció**: Testreszabható beállítások
-- **Interaktív szerkesztő**: `config_editor.py`
-- **Professzionális eredmények**: Pontos műfaj meghatározás
-
-### 🔧 **Közös Jellemzők:**
+### 🔧 **Beépített Funkciók:**
 - **Batch feldolgozás**: Több fájl egyszerre 
 - **BPM elemzés**: Automatikus tempó meghatározás
-- **CSV export**: Strukturált eredmények
+- **CSV export**: Strukturált, UTF-8 eredmények
 - **TensorFlow optimalizálás**: Nagy teljesítmény
+- **Wrapper script**: Egy parancsból futtatható
 
 ## 📊 Műfaj Kategóriák (Példák)
 
@@ -128,40 +123,21 @@ source essentia_env/bin/activate
 python3 linux_essentia_optimized.py
 ```
 
-### **2. Intelligens Wrapper**
+### **2. Wrapper Script (Ajánlott)**
 ```bash
-# Automatikus futtatás (Discogs EffNet)
+# Automatikus futtatás csend módban
 ./run_silent.sh
-
-# Konfiguráció ellenőrzés
-./quick_switch.sh
 ```
 
-### **3. Manuális Konfiguráció**
+### **3. Közvetlen Futtatás** (haladóknak)
 ```bash
-# Konfiguráció megtekintése
-python3 config_editor.py show
-
-# Konfiguráció beállítás
-python3 config_editor.py set-model discogs
-
-# Interaktív szerkesztő
-python3 config_editor.py
-```
-
-### **4. Közvetlen Futtatás** (haladóknak)
-```bash
-# Optimalizált verzió (egyszerű, gyors)
+# Direkt indítás (verbose output)
 python3 linux_essentia_optimized.py
-
-# Konfigurálható verzió (testreszabható beállítások)  
-python3 linux_essentia_configurable.py
 ```
 
 ### **Eredmények:**
-- **Optimalizált**: `tensorflow_eredmenyek_*.csv`
-- **Konfigurálható**: `music_analysis_discogs_*.csv`
-- **Hibák**: `*_hibak_*.csv` (ha vannak)
+- **Sikeres elemzések**: `tensorflow_eredmenyek_*.csv`
+- **Hibák** (ha vannak): `tensorflow_hibak_*.csv`
 
 ### **CSV Formátum:**
 ```csv
