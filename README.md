@@ -27,6 +27,9 @@ python3 linux_essentia_optimized.py
 ```
 essentia-local/
 ├── linux_essentia_optimized.py    # FŐPROGRAM (csend verzió)
+├── linux_essentia_configurable.py # KONFIGURÁLHATÓ verzió
+├── config.json                    # Konfiguráció fájl
+├── config_editor.py               # Konfiguráció szerkesztő
 ├── check_installation.py          # Telepítés ellenőrző
 ├── setup.sh                       # Telepítő script  
 ├── requirements.txt               # Python függőségek
@@ -44,7 +47,20 @@ essentia-local/
 
 ## 🎼 Jellemzők
 
+### 🚀 **Két Verzió Elérhető:**
+
+#### **1. Optimalizált Verzió** (`linux_essentia_optimized.py`)
 - **Discogs EffNet modell**: 400+ műfaj kategória
+- **Rögzített beállítások**: Gyors használat
+- **Csend üzemmód**: Nincs TensorFlow spam
+
+#### **2. Konfigurálható Verzió** (`linux_essentia_configurable.py`) 
+- **Több modell támogatás**: Discogs EffNet ÉS MusiCNN
+- **JSON konfiguráció**: Testreszabható beállítások
+- **Interaktív szerkesztő**: `config_editor.py`
+- **Teljesítmény választás**: Gyors vs pontos
+
+### 🔧 **Közös Jellemzők:**
 - **Batch feldolgozás**: Több fájl egyszerre 
 - **BPM elemzés**: Automatikus tempó meghatározás
 - **CSV export**: Strukturált eredmények
@@ -61,6 +77,27 @@ Jazz → Bebop, Fusion, Smooth Jazz...
 Pop → Indie Pop, K-pop, Dance-pop...
 Classical → Baroque, Contemporary, Opera...
 ```
+
+## 🎭 **Modell Összehasonlítás**
+
+| Modell | Műfajok | Sebesség | Pontosság | Használat |
+|--------|---------|----------|-----------|-----------|
+| **Discogs EffNet** | 400+ | Lassú | ⭐⭐⭐⭐⭐ | Professzionális elemzés |
+| **MusiCNN** | 10 | Gyors | ⭐⭐⭐⭐ | Gyors kategorizálás |
+
+### **Mikor használj melyiket:**
+
+#### **Discogs EffNet** - Ha kell a precizitás:
+- 🎯 **Részletes műfajok**: "Progressive House" vs "Tech House"  
+- 🎼 **Professzionális használat**: DJ-k, zenei adatbázisok
+- 📊 **Kutatás, statisztikák**: Pontos kategorizálás
+- ⏳ **Van idő**: 15-30 másodperc/fájl
+
+#### **MusiCNN** - Ha kell a sebesség:
+- ⚡ **Gyors screening**: Alapvető műfaj meghatározás
+- 📁 **Nagy mennyiség**: 1000+ fájl batch feldolgozás
+- 🔄 **Valós idejű**: Streaming alkalmazások
+- ⏱️ **Gyors eredmény**: 3-8 másodperc/fájl
 
 ## 💻 Hardware Követelmények
 
@@ -90,24 +127,49 @@ mkdir -p audio_mp3
 
 ## 📝 Használat
 
-### Egyszerű használat:
+### **1. Egyszerű Használat** (Optimalizált Verzió)
 ```bash
-# Fájlok hozzáadása
+# Audio fájlok hozzáadása
 cp your_music.mp3 audio_mp3/
 
-# Elemzés futtatása
+# Futtatás (Discogs EffNet modell)
 source essentia_env/bin/activate
 python3 linux_essentia_optimized.py
 ```
 
-### Eredmények:
-- `tensorflow_eredmenyek_YYYYMMDD_HHMMSS.csv` - Sikeres elemzések
-- `tensorflow_hibak_YYYYMMDD_HHMMSS.csv` - Hibás fájlok (ha vannak)
+### **2. Konfigurálható Használat** (Több Modell)
+```bash
+# Konfiguráció megtekintése
+python3 config_editor.py show
 
-### CSV formátum:
+# Modell váltás (MusiCNN gyorsabb)
+python3 config_editor.py set-model musicnn
+
+# Konfigurálható futtatás
+python3 linux_essentia_configurable.py
+```
+
+### **3. Interaktív Konfiguráció**
+```bash
+# Grafikus szerkesztő
+python3 config_editor.py
+# ↓ Menü:
+# 1. Konfiguráció megjelenítése
+# 2. Elérhető modellek
+# 3. Aktív modell változtatása  
+# 4. Feldolgozási beállítások
+```
+
+### **Eredmények:**
+- **Optimalizált**: `tensorflow_eredmenyek_*.csv`
+- **Konfigurálható**: `music_analysis_[model]_*.csv`
+- **Hibák**: `*_hibak_*.csv` (ha vannak)
+
+### **CSV Formátum:**
 ```csv
-fajl,BPM,audio_hossz_sec,Genre_1,Conf_1,Genre_2,Conf_2,...
-song.mp3,128.5,180.2,"Electronic / House",0.8432,"Pop / Dance-pop",0.1234
+fajl,BPM,modell,Genre_1,Conf_1,Genre_2,Conf_2,...
+song.mp3,128.5,discogs,"Electronic / House",0.8432,"Pop / Dance-pop",0.1234
+song2.mp3,95.2,musicnn,"rock",0.7234,"electronic",0.1876
 ```
 
 ## 📈 Támogatott Formátumok

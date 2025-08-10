@@ -1,0 +1,56 @@
+{
+  "model_settings": {
+    "active_model": "discogs",
+    "models": {
+      "discogs": {
+        "name": "Discogs EffNet",
+        "description": "400+ detailed genre categories from Discogs database",
+        "model_file": "models/classifier_model.pb",
+        "labels_file": "models/classifier_labels.json",
+        "download_url": "https://essentia.upf.edu/models/music-style-classification/discogs-effnet/discogs-effnet-bs64-1.pb",
+        "labels_url": "https://essentia.upf.edu/models/music-style-classification/discogs-effnet/discogs-effnet-bs64-1.json",
+        "algorithm": "TensorflowPredictEffnetDiscogs",
+        "sample_rate": 16000,
+        "genre_count": 400,
+        "performance": "slow",
+        "accuracy": "excellent"
+      },
+      "musicnn": {
+        "name": "MusiCNN",
+        "description": "10 basic genre categories, fast processing",
+        "model_file": "essentia-models/musicnn/genre_dortmund_musicnn_msd.pb",
+        "labels_file": null,
+        "download_url": null,
+        "labels_url": null,
+        "algorithm": "TensorflowPredictMusiCNN",
+        "sample_rate": 16000,
+        "genre_count": 10,
+        "performance": "fast",
+        "accuracy": "good",
+        "genres": ["blues", "country", "disco", "hiphop", "jazz", "reggae", "rock", "classical", "electronic", "folk"]
+      }
+    }
+  },
+  "processing_settings": {
+    "batch_size": 1,
+    "enable_bpm_analysis": true,
+    "top_genres_count": 5,
+    "confidence_threshold": 0.01,
+    "audio_formats": [".mp3", ".wav", ".flac", ".ogg", ".m4a"],
+    "max_audio_length_seconds": 600,
+    "verbose_output": true
+  },
+  "output_settings": {
+    "csv_encoding": "utf-8-sig",
+    "timestamp_format": "%Y-%m-%d %H:%M:%S",
+    "filename_prefix": "music_analysis",
+    "include_audio_length": true,
+    "include_processing_time": true
+  },
+  "system_settings": {
+    "tf_log_level": "ERROR",
+    "essentia_log_level": "ERROR",
+    "num_threads": 4,
+    "memory_limit_mb": 2048
+  }
+}
