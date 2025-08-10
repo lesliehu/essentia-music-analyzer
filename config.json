@@ -1,6 +1,6 @@
 {
   "model_settings": {
-    "active_model": "discogs",
+    "active_model": "musicnn",
     "models": {
       "discogs": {
         "name": "Discogs EffNet",
@@ -27,7 +27,18 @@
         "genre_count": 10,
         "performance": "fast",
         "accuracy": "good",
-        "genres": ["blues", "country", "disco", "hiphop", "jazz", "reggae", "rock", "classical", "electronic", "folk"]
+        "genres": [
+          "blues",
+          "country",
+          "disco",
+          "hiphop",
+          "jazz",
+          "reggae",
+          "rock",
+          "classical",
+          "electronic",
+          "folk"
+        ]
       }
     }
   },
@@ -36,7 +47,13 @@
     "enable_bpm_analysis": true,
     "top_genres_count": 5,
     "confidence_threshold": 0.01,
-    "audio_formats": [".mp3", ".wav", ".flac", ".ogg", ".m4a"],
+    "audio_formats": [
+      ".mp3",
+      ".wav",
+      ".flac",
+      ".ogg",
+      ".m4a"
+    ],
     "max_audio_length_seconds": 600,
     "verbose_output": true
   },
