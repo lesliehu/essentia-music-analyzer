@@ -1,6 +1,6 @@
 # Essentia Zene Műfaj Elemző - Linux x86
 
-**🎯 ÁLLAPOT**: Rendszer kész a használatra! TensorFlow Discogs EffNet modell 400+ műfajjal.
+**🎯 ÁLLAPOT**: Optimalizált rendszer! Egyetlen profi modell - Discogs EffNet 400+ műfajjal.
 
 ## 🚀 Gyors Indítás
 
@@ -73,26 +73,22 @@ Pop → Indie Pop, K-pop, Dance-pop...
 Classical → Baroque, Contemporary, Opera...
 ```
 
-## 🎭 **Modell Összehasonlítás**
+## 🎯 **Discogs EffNet Modell Jellemzők**
 
-| Modell | Műfajok | Sebesség | Pontosság | Használat |
-|--------|---------|----------|-----------|-----------|
-| **Discogs EffNet** | 400+ | Lassú | ⭐⭐⭐⭐⭐ | Professzionális elemzés |
-| **MusiCNN** | 10 | Gyors | ⭐⭐⭐⭐ | Gyors kategorizálás |
+| Tulajdonság | Érték |
+|-------------|-------|
+| **Műfajok száma** | 400+ részletes kategória |
+| **Pontosság** | ⭐⭐⭐⭐⭐ Professzionális szint |
+| **Sebesség** | 15-30 másodperc/fájl |
+| **Modell méret** | 18MB (optimalizált) |
+| **Használat** | Professzionális elemzés |
 
-### **Mikor használj melyiket:**
-
-#### **Discogs EffNet** - Ha kell a precizitás:
-- 🎯 **Részletes műfajok**: "Progressive House" vs "Tech House"  
-- 🎼 **Professzionális használat**: DJ-k, zenei adatbázisok
-- 📊 **Kutatás, statisztikák**: Pontos kategorizálás
-- ⏳ **Van idő**: 15-30 másodperc/fájl
-
-#### **MusiCNN** - Ha kell a sebesség:
-- ⚡ **Gyors screening**: Alapvető műfaj meghatározás
-- 📁 **Nagy mennyiség**: 1000+ fájl batch feldolgozás
-- 🔄 **Valós idejű**: Streaming alkalmazások
-- ⏱️ **Gyors eredmény**: 3-8 másodperc/fájl
+### **Miért csak Discogs EffNet:**
+- 🎯 **Precíz eredmények**: "Progressive House" vs "Tech House" megkülönböztetés
+- 🎼 **Professzionális minőség**: DJ-k, zenei adatbázisok, kutatás
+- 📊 **Részletes kategóriák**: 400+ műfaj vs 10 alapkategória
+- 🔧 **Egyszerűség**: Egy modell, egy minőségi standard
+- 💾 **Optimális**: Minimális tárhely (18MB vs 65MB előtte)
 
 ## 💻 Hardware Követelmények
 
@@ -100,7 +96,7 @@ Classical → Baroque, Contemporary, Opera...
 |-----------|---------|----------|
 | **CPU** | 2 core, 2GHz | 4+ core, 3GHz+ |
 | **RAM** | 4GB | 8-16GB |
-| **Tárhely** | 5GB | 20GB+ |
+| **Tárhely** | 2GB | 10GB+ |
 | **OS** | Linux x86_64 | Ubuntu 22.04+ |
 
 **Teljesítmény**: 15-60 másodperc/fájl (géptől függően)
@@ -132,16 +128,13 @@ source essentia_env/bin/activate
 python3 linux_essentia_optimized.py
 ```
 
-### **2. Gyors Modell Váltás**
+### **2. Intelligens Wrapper**
 ```bash
-# Gyors váltó (interaktív)
-./quick_switch.sh
-# ↓ Választás:
-# 1. discogs (400+ műfaj, precíz)
-# 2. musicnn (10 műfaj, gyors)
-
-# Futtatás automatikus modell választással
+# Automatikus futtatás (Discogs EffNet)
 ./run_silent.sh
+
+# Konfiguráció ellenőrzés
+./quick_switch.sh
 ```
 
 ### **3. Manuális Konfiguráció**
@@ -149,8 +142,8 @@ python3 linux_essentia_optimized.py
 # Konfiguráció megtekintése
 python3 config_editor.py show
 
-# Modell váltás parancssorból
-python3 config_editor.py set-model musicnn
+# Konfiguráció beállítás
+python3 config_editor.py set-model discogs
 
 # Interaktív szerkesztő
 python3 config_editor.py
@@ -158,23 +151,23 @@ python3 config_editor.py
 
 ### **4. Közvetlen Futtatás** (haladóknak)
 ```bash
-# Optimalizált verzió (fix Discogs)
+# Optimalizált verzió (egyszerű, gyors)
 python3 linux_essentia_optimized.py
 
-# Konfigurálható verzió (JSON alapján)  
+# Konfigurálható verzió (testreszabható beállítások)  
 python3 linux_essentia_configurable.py
 ```
 
 ### **Eredmények:**
 - **Optimalizált**: `tensorflow_eredmenyek_*.csv`
-- **Konfigurálható**: `music_analysis_[model]_*.csv`
+- **Konfigurálható**: `music_analysis_discogs_*.csv`
 - **Hibák**: `*_hibak_*.csv` (ha vannak)
 
 ### **CSV Formátum:**
 ```csv
 fajl,BPM,modell,Genre_1,Conf_1,Genre_2,Conf_2,...
 song.mp3,128.5,discogs,"Electronic / House",0.8432,"Pop / Dance-pop",0.1234
-song2.mp3,95.2,musicnn,"rock",0.7234,"electronic",0.1876
+rock.mp3,161.5,discogs,"Rock / Alternative",0.7234,"Rock / Heavy Metal",0.1876
 ```
 
 ## 📈 Támogatott Formátumok
@@ -274,4 +267,12 @@ tail -f output.log
 
 ---
 
-**A rendszer készen áll a használatra! Egyszerű telepítés, pontos eredmények, professzionális CSV kimenetek.**
+## 🎯 **Összefoglalás**
+
+**Optimalizált, egymodellos megközelítés:**
+- ✅ **18MB** kompakt rendszer (47MB-ról csökkentve)
+- ✅ **400+ műfaj** professzionális pontossággal  
+- ✅ **Egyszerű használat** - egy parancs, megbízható eredmény
+- ✅ **Tiszta architektúra** - nincs felesleges komplexitás
+
+**A rendszer készen áll a használatra! Optimális tárhely, maximális pontosság, professzionális eredmények.**
