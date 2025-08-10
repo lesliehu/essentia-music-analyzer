@@ -10,29 +10,45 @@ import json
 import logging
 from datetime import datetime
 
-# TensorFlow és Essentia logging csendesítés
+# MAXIMÁLIS TensorFlow és Essentia csendesítés
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['ESSENTIA_LOGGING_LEVEL'] = 'ERROR'
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-logging.getLogger('tensorflow').setLevel(logging.ERROR)
-logging.getLogger('essentia').setLevel(logging.ERROR)
+os.environ['KMP_AFFINITY'] = 'noverbose'
+os.environ['TF_AUTOTUNE_THRESHOLD'] = '1'
 
-# További TensorFlow csendesítés
+# Összes warning és info kikapcsolása
 import warnings
-warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore', category=Warning)
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
+import logging
+logging.getLogger('tensorflow').setLevel(logging.CRITICAL)
+logging.getLogger('essentia').setLevel(logging.CRITICAL)
+logging.getLogger('absl').setLevel(logging.CRITICAL)
+
+# Stderr csendesítés TensorFlow-hoz
+import sys
+from contextlib import redirect_stderr
+import io
 
 import numpy as np
 import pandas as pd
 import urllib.request
 
-# Essentia import ellenőrzéssel
+# Essentia import teljes csendesítéssel
 try:
-    import essentia
-    import essentia.standard as es
-    
-    # Extra Essentia csendesítés
-    essentia.log.silent()
-    essentia.log.setLevel(essentia.EAlgorithmLogLevel.SILENT)
+    # TensorFlow import előtt stderr elnyomás
+    stderr_buffer = io.StringIO()
+    with redirect_stderr(stderr_buffer):
+        import essentia
+        import essentia.standard as es
+        
+        # Maximális Essentia csendesítés
+        essentia.log.silent()
+        essentia.log.setLevel(essentia.EAlgorithmLogLevel.SILENT)
     
     print("✅ Essentia betöltve (verzió: {})".format(essentia.__version__))
 except ImportError:
@@ -41,7 +57,7 @@ except ImportError:
     sys.exit(1)
 except Exception:
     # Ha a csendesítés nem működik, folytatjuk
-    print("✅ Essentia betöltve (verzió: {})".format(essentia.__version__))
+    print("✅ Essentia betöltve")
 
 
 class MusicGenreClassifier:
@@ -97,8 +113,10 @@ class MusicGenreClassifier:
             print("🤖 TensorFlow modell betöltése...")
             start_time = time.time()
             
-            # Modell betöltése
-            self.predictor = es.TensorflowPredictEffnetDiscogs(graphFilename=model_path)
+            # Modell betöltése csendben
+            stderr_buffer = io.StringIO()
+            with redirect_stderr(stderr_buffer):
+                self.predictor = es.TensorflowPredictEffnetDiscogs(graphFilename=model_path)
             
             # Címkék betöltése
             with open(labels_path, "r") as f:
@@ -125,7 +143,9 @@ class MusicGenreClassifier:
                 # Csak műfaj elemzés - 30-50% gyorsabb
                 print("    🤖 Műfaj predikció (BPM kihagyva)...")
                 audio_16k = es.MonoLoader(filename=file_path, sampleRate=16000)()
-                activations = self.predictor(audio_16k)
+                stderr_buffer = io.StringIO()
+                with redirect_stderr(stderr_buffer):
+                    activations = self.predictor(audio_16k)
                 
                 # Top 5 műfaj
                 genre_results = sorted(
@@ -155,7 +175,9 @@ class MusicGenreClassifier:
                 audio_16k = resampler(audio_44k)
                 
                 print("    🤖 Műfaj predikció...")
-                activations = self.predictor(audio_16k)
+                stderr_buffer = io.StringIO()
+                with redirect_stderr(stderr_buffer):
+                    activations = self.predictor(audio_16k)
                 
                 # Top 5 műfaj (vectorizált rendezés - gyorsabb)
                 probabilities = activations[0]
