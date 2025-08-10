@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+essentia_env/
+venv/
+ENV/
+env/
+.venv/
+
+# Audio files (examples excluded for size)
+audio_mp3/*.mp3
+audio_mp3/*.wav
+audio_mp3/*.flac
+audio_mp3/*.ogg
+audio_mp3/*.m4a
+!audio_mp3/.gitkeep
+
+# Results
+*.csv
+tensorflow_eredmenyek_*.csv
+tensorflow_hibak_*.csv
+helyi_modell_*.csv
+eredmenyek_*.csv
+
+# Logs
+*.log
+output.log
+nohup.out
+
+# Models cache
+models/temp/
+*.tmp
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.bak
+*.backup
