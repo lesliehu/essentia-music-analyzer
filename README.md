@@ -34,14 +34,9 @@ essentia-local/
 ├── setup.sh                       # Telepítő script  
 ├── requirements.txt               # Python függőségek
 ├── README.md                      # Ez a fájl
-├── models/                        # Aktív modellek
+├── models/                        # Aktív modell fájlok  
 │   ├── classifier_model.pb        # Discogs EffNet (18MB)
 │   └── classifier_labels.json     # 400 műfaj címke
-├── essentia-models/               # További modellek
-│   ├── effnetdiscogs/             # Discogs EffNet
-│   ├── musicnn/                   # MusiCNN (10 műfaj)
-│   ├── vgg/                       # VGG4
-│   └── ...                        # További opciók
 └── audio_mp3/                     # Feldolgozandó fájlok
 ```
 
@@ -55,10 +50,10 @@ essentia-local/
 - **Csend üzemmód**: Nincs TensorFlow spam
 
 #### **2. Konfigurálható Verzió** (`linux_essentia_configurable.py`) 
-- **Több modell támogatás**: Discogs EffNet ÉS MusiCNN
+- **Discogs EffNet modell**: 400+ műfaj kategória
 - **JSON konfiguráció**: Testreszabható beállítások
 - **Interaktív szerkesztő**: `config_editor.py`
-- **Teljesítmény választás**: Gyors vs pontos
+- **Professzionális eredmények**: Pontos műfaj meghatározás
 
 ### 🔧 **Közös Jellemzők:**
 - **Batch feldolgozás**: Több fájl egyszerre 

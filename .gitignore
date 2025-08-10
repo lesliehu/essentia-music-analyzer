@@ -72,3 +72,6 @@ Thumbs.db
 # Temporary files
 *.bak
 *.backup
+
+# Essentia models directory - removed, not needed for Discogs-only approach
+essentia-models/
