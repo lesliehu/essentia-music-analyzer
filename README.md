@@ -27,7 +27,9 @@ cp *.mp3 audio_mp3/
 ```
 essentia-local/
 ├── linux_essentia_optimized.py   # FŐPROGRAM - Discogs EffNet
-├── run_silent.sh                  # Wrapper script (csend verzió)
+├── linux_essentia_speed.py       # GYORSÍTOTT verzió (30% gyorsabb)
+├── run_silent.sh                  # Wrapper (eredeti verzió csend)
+├── run_speed.sh                   # Wrapper (gyorsított verzió csend) 
 ├── check_installation.py         # Telepítés ellenőrző
 ├── setup.sh                      # Telepítő script  
 ├── requirements.txt              # Python függőségek
@@ -123,21 +125,28 @@ source essentia_env/bin/activate
 python3 linux_essentia_optimized.py
 ```
 
-### **2. Wrapper Script (Ajánlott)**
+### **2. Wrapper Scriptek (Ajánlott)**
 ```bash
-# Automatikus futtatás csend módban
+# Eredeti verzió csend módban
 ./run_silent.sh
+
+# Gyorsított verzió csend módban (30% gyorsabb)
+./run_speed.sh
 ```
 
 ### **3. Közvetlen Futtatás** (haladóknak)
 ```bash
-# Direkt indítás (verbose output)
+# Eredeti verzió (verbose output)
 python3 linux_essentia_optimized.py
+
+# Gyorsított verzió (verbose output) 
+python3 linux_essentia_speed.py
 ```
 
 ### **Eredmények:**
-- **Sikeres elemzések**: `tensorflow_eredmenyek_*.csv`
-- **Hibák** (ha vannak): `tensorflow_hibak_*.csv`
+- **Eredeti verzió**: `tensorflow_eredmenyek_*.csv`
+- **Gyorsított verzió**: `speed_eredmenyek_*.csv`
+- **Hibák** (ha vannak): `*_hibak_*.csv`
 
 ### **CSV Formátum:**
 ```csv

@@ -413,32 +413,6 @@ def main():
         return 1
 
 
-def silent_main():
-    """Main wrapper - elnyomja az összes stderr outputot"""
-    # Stderr elnyomás a teljes program futása alatt
-    stderr_devnull = open(os.devnull, 'w')
-    original_stderr = sys.stderr
-    
-    try:
-        # Csak a WARNING és INFO szintű üzenetek elnyomása
-        class WarningFilter:
-            def write(self, text):
-                # Ha WARNING vagy INFO, ne írja ki
-                if any(keyword in text for keyword in ['WARNING', 'INFO', 'No network created']):
-                    return
-                # Egyébként eredeti stderr-re
-                original_stderr.write(text)
-                
-            def flush(self):
-                original_stderr.flush()
-        
-        sys.stderr = WarningFilter()
-        return main()
-        
-    finally:
-        sys.stderr = original_stderr
-        stderr_devnull.close()
-
-
 if __name__ == "__main__":
-    sys.exit(silent_main())
+    # Egyszerű verzió - warning szűrés a bash wrapper-rel (run_speed.sh)
+    sys.exit(main())
