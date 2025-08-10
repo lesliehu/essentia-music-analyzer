@@ -8,11 +8,17 @@
 # 1. Telepítés
 chmod +x setup.sh && ./setup.sh
 
-# 2. Audio fájlok hozzáadása
+# 2. Telepítés ellenőrzés
+source essentia_env/bin/activate
+python3 check_installation.py
+
+# 3. Git LFS modellek (ha szükséges)
+git lfs pull
+
+# 4. Audio fájlok hozzáadása
 cp *.mp3 audio_mp3/
 
-# 3. Futtatás
-source essentia_env/bin/activate
+# 5. Futtatás (csend verzió)
 python3 linux_essentia_optimized.py
 ```
 
@@ -20,12 +26,13 @@ python3 linux_essentia_optimized.py
 
 ```
 essentia-local/
-├── linux_essentia_optimized.py    # FŐPROGRAM
-├── setup.sh                       # Telepítő script
+├── linux_essentia_optimized.py    # FŐPROGRAM (csend verzió)
+├── check_installation.py          # Telepítés ellenőrző
+├── setup.sh                       # Telepítő script  
 ├── requirements.txt               # Python függőségek
 ├── README.md                      # Ez a fájl
 ├── models/                        # Aktív modellek
-│   ├── classifier_model.pb        # Discogs EffNet (17MB)
+│   ├── classifier_model.pb        # Discogs EffNet (18MB)
 │   └── classifier_labels.json     # 400 műfaj címke
 ├── essentia-models/               # További modellek
 │   ├── effnetdiscogs/             # Discogs EffNet
@@ -128,13 +135,34 @@ python3 linux_essentia_optimized.py
 
 ## 🐛 Hibaelhárítás
 
+### Telepítési problémák ellenőrzése:
+```bash
+source essentia_env/bin/activate
+python3 check_installation.py
+```
+
 ### "Essentia nincs telepítve":
 ```bash
-pip install essentia-tensorflow
+pip install essentia-tensorflow==2.1b6.dev1389
+```
+
+### Git LFS modell problémák:
+```bash
+sudo apt install git-lfs
+git lfs install
+git lfs pull
+ls -lah models/classifier_model.pb  # ~18MB kell legyen
+```
+
+### "TensorFlow WARNING" üzenetek:
+A program automatikusan elcsendesíti őket, de ha mégis megjelennek:
+```bash
+export TF_CPP_MIN_LOG_LEVEL=3
+python3 linux_essentia_optimized.py
 ```
 
 ### Lassú feldolgozás:
-- Több CPU core használata
+- Több CPU core használata  
 - SSD használata HDD helyett
 - Kisebb fájlokkal tesztelés
 

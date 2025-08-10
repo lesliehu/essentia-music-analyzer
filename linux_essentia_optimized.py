@@ -4,13 +4,21 @@ Essentia zene műfaj elemző - Optimalizált Linux verzió TensorFlow modellel
 Pontos műfaj meghatározás a Discogs EffNet modellel
 """
 import os
+import sys
+import time
 import json
+import logging
+from datetime import datetime
+
+# TensorFlow és Essentia logging csendesítés
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['ESSENTIA_LOGGING_LEVEL'] = 'ERROR'
+logging.getLogger('tensorflow').setLevel(logging.ERROR)
+logging.getLogger('essentia').setLevel(logging.ERROR)
+
 import numpy as np
 import pandas as pd
 import urllib.request
-from datetime import datetime
-import sys
-import time
 
 # Essentia import ellenőrzéssel
 try:
