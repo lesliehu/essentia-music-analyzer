@@ -14,31 +14,6 @@
         "genre_count": 400,
         "performance": "slow",
         "accuracy": "excellent"
-      },
-      "musicnn": {
-        "name": "MusiCNN",
-        "description": "10 basic genre categories, fast processing",
-        "model_file": "essentia-models/musicnn/genre_dortmund_musicnn_msd.pb",
-        "labels_file": null,
-        "download_url": null,
-        "labels_url": null,
-        "algorithm": "TensorflowPredictMusiCNN",
-        "sample_rate": 16000,
-        "genre_count": 10,
-        "performance": "fast",
-        "accuracy": "good",
-        "genres": [
-          "blues",
-          "country",
-          "disco",
-          "hiphop",
-          "jazz",
-          "reggae",
-          "rock",
-          "classical",
-          "electronic",
-          "folk"
-        ]
       }
     }
   },

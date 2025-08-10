@@ -70,27 +70,14 @@ echo "📋 Jelenlegi konfiguráció:"
 python3 config_editor.py show | grep -A5 "🤖 Aktív modell"
 
 echo ""
-echo "🔄 Elérhető modellek:"
-echo "  1. discogs  (400+ műfaj, lassú, precíz)"
-echo "  2. musicnn  (10 műfaj, gyors, jó)"
+echo "🎯 Csak a Discogs EffNet modell elérhető"
+echo "  • 400+ részletes műfaj kategória"
+echo "  • Pontos és megbízható eredmények"
+echo "  • Professzionális minőség"
 echo ""
 
-read -p "Válassz modellt (1/2): " choice
-
-case $choice in
-    1)
-        echo "🔄 Váltás Discogs EffNet modellre..."
-        python3 config_editor.py set-model discogs
-        ;;
-    2)
-        echo "🔄 Váltás MusiCNN modellre..."
-        python3 config_editor.py set-model musicnn
-        ;;
-    *)
-        echo "❌ Érvénytelen választás!"
-        exit 1
-        ;;
-esac
+echo "✅ Discogs EffNet modell már aktív"
+python3 config_editor.py set-model discogs
 
 echo ""
 echo "✅ Modell váltás kész!"
