@@ -1,7 +1,7 @@
 # Apple Silicon (M1/M2/M3) optimalized requirements
 
-# Essentia - audio analysis (ARM64 compatible)
-essentia-tensorflow>=2.1.0
+# Essentia - audio analysis (ARM64 compatible, dev version)
+essentia-tensorflow==2.1b6.dev1389
 
 # NumPy - Apple Accelerate framework optimalized  
 numpy>=1.21.0
