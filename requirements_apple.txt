@@ -1,0 +1,17 @@
+# Apple Silicon (M1/M2/M3) optimalized requirements
+
+# Essentia - audio analysis (ARM64 compatible)
+essentia-tensorflow>=2.1.0
+
+# NumPy - Apple Accelerate framework optimalized  
+numpy>=1.21.0
+
+# Pandas for CSV export
+pandas>=1.3.0
+
+# TensorFlow with Metal GPU support for Apple Silicon
+tensorflow-macos>=2.11.0
+tensorflow-metal>=0.7.0
+
+# Optional: Additional Apple Silicon optimizations
+# scipy>=1.9.0  # Accelerate-optimized BLAS/LAPACK
